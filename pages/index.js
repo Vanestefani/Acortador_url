@@ -5,21 +5,20 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   const inputRef = useRef();
   const [shortURL, setShortURL] = useState('');
-  const handleSubmit = e => {
-    e.preventDefault()
-    const url = inputRef.current.value
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const url = inputRef.current.value;
 
     fetch('/api/shortUrl', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ url })
+      body: JSON.stringify({url}),
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-      })
+    .then(res => res.json())
+    .then(data => { setShortURL(data.shortUrl) });
   }
 
   return (
@@ -32,7 +31,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Acortador de Urls
+          URL Shortener
         </h1>
 
         <p className={styles.description}>
